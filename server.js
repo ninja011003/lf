@@ -149,14 +149,16 @@ app.get('/:number', (req, res) => {
 // Handle form submission
 app.post('/submit', (req, res) => {
   let body = '';
-
+    
   req.on('data', chunk => {
     body += chunk.toString();
   });
 
+
   req.on('end', () => {
     const { answers } = JSON.parse(body);
     const filePath = path.join(__dirname, 'ans.txt');
+    console.log(body);
 
     const fileContent = answers.map((answer, index) => `${questions[index]}: ${answer}`).join('\n');
 
@@ -170,6 +172,10 @@ app.post('/submit', (req, res) => {
     });
   });
 });
+
+
+  
+  
 
 // Start the server
 app.listen(PORT, () => {
